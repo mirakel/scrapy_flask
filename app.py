@@ -6,9 +6,9 @@ from flask import request
 from flask import jsonify
 
 app = Flask(__name__)
-app.config.from_object(os.environ['APP_SETTING'])
+app.config.from_object(os.environ['APP_SETTINGS'])
 
-print(os.environ['APP_SETTING'])
+print(os.environ['APP_SETTINGS'])
 
 POSTGRES = {
     'user':'postgres',
