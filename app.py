@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from db.models import *
 from flask import abort
@@ -5,6 +6,9 @@ from flask import request
 from flask import jsonify
 
 app = Flask(__name__)
+app.config.from_object(os.environ['APP_SETTING'])
+
+print(os.environ['APP_SETTING'])
 
 POSTGRES = {
     'user':'postgres',
@@ -14,8 +18,6 @@ POSTGRES = {
     'port':'5433'
 }
 
-app.config['DEBUG'] = True
-app.config['SECRET_KEY'] = 'M#lOkNdmdAxaGS=GgEPl)&9_$JFNCE&djVLB30zwRwvMDQxFq&tTnv-)'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
 db.init_app(app)
