@@ -1,5 +1,6 @@
 import os
 from flask import Flask
+# from flask_sqlalchemy import SQLAlchemy
 from db.models import *
 from flask import abort
 from flask import request
@@ -7,19 +8,7 @@ from flask import jsonify
 
 app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
-
-print(os.environ['APP_SETTINGS'])
-
-POSTGRES = {
-    'user':'postgres',
-    'pw':'123456',
-    'db': 'learning_flask',
-    'host':'localhost',
-    'port':'5433'
-}
-
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://%(user)s:%(pw)s@%(host)s:%(port)s/%(db)s' % POSTGRES
 db.init_app(app)
 
 @app.route('/')
