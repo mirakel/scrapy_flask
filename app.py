@@ -46,6 +46,12 @@ def get_episodio(episode_id):
 
     return jsonify(episode.to_dict())
 
+@app.route('/api/seasons/<int:season_id>/episodes', methods=['GET'])
+def get_episodes_by_season(season_id):
+    episodes = Episode.query.filter_by(season_id = season_id).order_by(Episode.id)
+
+    return jsonify([e.to_dict() for e in episodes])
+
 @app.route('/api/seasons/add', methods=['POST'])
 def add_season():
     title = request.form['title']
@@ -88,13 +94,3 @@ def delete_episode(episode_id):
 
 if __name__ == '__main__':
     app.run()
-
-
-
-"""
-ref: https://www.theodo.fr/blog/2017/03/developping-a-flask-web-app-with-a-postresql-database-making-all-the-possible-errors/
-ref: http://blog.mmast.net/sqlalchemy-serialize-json
-
-http://blog.vero4ka.info/blog/2017/01/20/flask-con-todas-las-arandelas/
-
-"""
